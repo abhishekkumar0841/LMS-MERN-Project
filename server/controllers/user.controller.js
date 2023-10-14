@@ -11,6 +11,7 @@ const cookieOptions = {
   // secure: true,
 };
 
+//*****register Controller *****
 const register = async (req, res, next) => {
   try {
     const { fullName, email, password } = req.body;
@@ -90,6 +91,7 @@ const register = async (req, res, next) => {
   }
 };
 
+//***** login Controller *****
 const login = async (req, res, next) => {
   try {
     const { email, password } = req.body;
@@ -126,6 +128,8 @@ const login = async (req, res, next) => {
   }
 };
 
+
+//***** logout Controller *****
 const logout = (req, res) => {
   res.cookie("token", null, {
     secure: true,
@@ -139,6 +143,7 @@ const logout = (req, res) => {
   });
 };
 
+//***** getProfile Controller *****
 const getProfile = async (req, res) => {
   try {
     const userId = req.user.id;
@@ -154,6 +159,7 @@ const getProfile = async (req, res) => {
   }
 };
 
+//***** forgetPassword Controller *****
 const forgetPassword = async (req, res, next) => {
   const { email } = req.body;
 
@@ -199,6 +205,7 @@ const forgetPassword = async (req, res, next) => {
   }
 };
 
+//***** resetPassword Controller *****
 const resetPassword = async (req, res, next) => {
   const { resetToken } = req.params;
   const { password } = req.body;
