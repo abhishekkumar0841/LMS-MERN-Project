@@ -1,6 +1,7 @@
 import { Schema, model } from "mongoose";
-import bcrypt from 'bcryptjs'
-import  jwt  from "jsonwebtoken";
+import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
+import crypto from 'crypto'
 
 const userSchema = new Schema(
   {
@@ -58,24 +59,44 @@ userSchema.pre("save", async function (next) {
   this.password = await bcrypt.hash(this.password, 10);
 });
 
-//writing generic methods for generating JWT token and comparing password
-userSchema.methods ={
-    generateJWTToken: async function(){
-        return await jwt.sign(
-            {id: this._id, email: this.email, subscription: this.subscription, role: this.role},
-            process.env.JWT_SECRET,
-            {
-                expiresIn: process.env.JWT_EXPIRY
-            }
-        )
-    },
+//writing generic methods for generating JWT token, comparing password and much more..
+userSchema.methods = {
+  generateJWTToken: async function () {
+    return await jwt.sign(
+      {
+        id: this._id,
+        email: this.email,
+        subscription: this.subscription,
+        role: this.role,
+      },
+      process.env.JWT_SECRET,
+      {
+        expiresIn: process.env.JWT_EXPIRY,
+      }
+    );
+  },
 
-    // function for comparing normal password to hashed password
-    comparePassword: async function(plainTextPassword){
-        return await bcrypt.compare(plainTextPassword, this.password)
-    } 
+  // function for comparing normal password to hashed password
+  comparePassword: async function (plainTextPassword) {
+    return await bcrypt.compare(plainTextPassword, this.password);
+  },
 
-}
+  //function for generatePasswordResetToken using CRYPTO
+  //this function generates token with its expiry
+  generatePasswordResetToken: async function () {
+    const resetToken = crypto.randomBytes(20).toString("hex");
+
+    //setting these values to userModel which is already defined in this model
+    this.forgetPasswordToken = crypto
+      .createHash("sha256")
+      .update(resetToken)
+      .digest("hex");
+
+    this.forgetPasswordExpiry = Date.now() + 15 * 60 * 1000; //15 min from now
+
+    return resetToken;
+  },
+};
 
 const User = model("User", userSchema);
 export default User;
