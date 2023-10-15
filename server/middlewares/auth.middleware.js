@@ -1,6 +1,7 @@
 import jwt from "jsonwebtoken";
 import AppError from "../utils/error.utils.js";
 
+// ********AUTHENTICATION MIDDLEWARE************
 const isLoggedIn = async (req, res, next) => {
   const { token } = req.cookies;
 
@@ -9,11 +10,25 @@ const isLoggedIn = async (req, res, next) => {
   }
 
   const userDetails = await jwt.verify(token, process.env.JWT_SECRET);
-  console.log("Printing userDetails from auth-->", userDetails)
+  console.log("Printing userDetails from auth-->", userDetails);
 
   req.user = userDetails;
 
   next();
 };
 
-export { isLoggedIn };
+// ********AUTHORIZED ROLES MIDDLEWARE************
+//here i use CLOSERS by which i get all the roles of the users first and then allow the users with authorized paths
+const authorizedRoles =
+  (...roles) =>
+  async (req, res, next) => {
+    const currentRoles = req.user.role;
+    if (!roles.includes(currentRoles)) {
+      return next(
+        new AppError("You do not have permission to access this route", 403)
+      );
+    }
+    next();
+  };
+
+export { isLoggedIn, authorizedRoles };

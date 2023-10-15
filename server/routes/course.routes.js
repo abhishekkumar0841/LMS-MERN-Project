@@ -6,7 +6,7 @@ import {
   removeCourse,
   updateCourse,
 } from "../controllers/course.controller.js";
-import { isLoggedIn } from "../middlewares/auth.middleware.js";
+import { authorizedRoles, isLoggedIn } from "../middlewares/auth.middleware.js";
 import upload from "../middlewares/multer.middleware.js";
 
 const router = Router();
@@ -18,12 +18,17 @@ const router = Router();
 router
   .route("/")
   .get(getAllCourses)
-  .post(upload.single("thumbnail"), createCourse);
+  .post(
+    isLoggedIn,
+    authorizedRoles("Admin"),
+    upload.single("thumbnail"),
+    createCourse
+  );
 
 router
   .route("/:id")
   .get(isLoggedIn, getLecturesByCourseId)
-  .put(updateCourse)
-  .delete(removeCourse);
+  .put(isLoggedIn, authorizedRoles("Admin"), updateCourse)
+  .delete(isLoggedIn, authorizedRoles("Admin"), removeCourse);
 
 export default router;
