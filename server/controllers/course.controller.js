@@ -119,7 +119,24 @@ const updateCourse = async function (req, res, next) {
 };
 
 // *******REMOVE COURSE CONTROLLER******
-const removeCourse = async function (req, res, next) {};
+const removeCourse = async function (req, res, next) {
+  try {
+    const {id} = req.params;
+
+    const course = await Course.findByIdAndDelete(id)
+
+    if(!course){
+      return next(new AppError("This course does not exist", 400))
+    }
+    
+    res.status(200).json({
+      success: true,
+      message: "This Course deleted successfully"
+    })
+  } catch (error) {
+    return next(new AppError(error.message, 500))
+  }
+};
 
 export {
   getAllCourses,
