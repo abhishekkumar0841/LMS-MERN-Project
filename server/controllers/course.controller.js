@@ -156,8 +156,6 @@ const addLectureByCourseId = async (req, res, next) => {
       );
     }
 
-    //TODO try with--> Course.create({})
-
     const lectureData = {
       title,
       description,
@@ -200,6 +198,52 @@ const addLectureByCourseId = async (req, res, next) => {
   }
 };
 
+// *******REMOVE All LECTURES BY COURSE ID CONTROLLER******
+const removeAllLecturesByCourseId = async(req, res, next)=>{
+  const {id} = req.params;
+  
+  try {
+    const course = await Course.findById(id)
+    if(!course){
+      return next(new AppError("This course does not exist", 400))
+    }
+
+    if(course.lectures.length < 1){
+      return next(new AppError("This course does't have any lectures", 400))
+    }
+
+    course.lectures = []
+
+    course.numbersOfLectures = 0;
+
+    await course.save()
+
+    res.status(200).json({
+      success: true,
+      message: "All Lectures successfully removed from the course",
+    });
+
+  } catch (error) {
+    return next(new AppError(error.message, 500))
+  }
+}
+
+// *******REMOVE LECTURES BY ID WITH COURSE ID CONTROLLER****** T O D O IN FUTURE\\\\\
+// const removeLectureByCourseId = async (req, res, next)=>{
+//   try {
+//     const {id: courseId, lectureId} = req.params
+
+//     if(!courseId || !lectureId) {
+//       return next(new AppError("Both courseId and lectureId are required!"))
+//     }
+
+//     const course = await Course.findById(courseId)
+    
+//   } catch (error) {
+//     return next(new AppError(error.message, 500))
+//   }
+// }
+
 export {
   getAllCourses,
   getLecturesByCourseId,
@@ -207,4 +251,5 @@ export {
   updateCourse,
   removeCourse,
   addLectureByCourseId,
+  removeAllLecturesByCourseId
 };

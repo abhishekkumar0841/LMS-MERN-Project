@@ -4,6 +4,7 @@ import {
   createCourse,
   getAllCourses,
   getLecturesByCourseId,
+  removeAllLecturesByCourseId,
   removeCourse,
   updateCourse,
 } from "../controllers/course.controller.js";
@@ -36,6 +37,6 @@ router
     authorizedRoles("Admin"),
     upload.single("lecture"),
     addLectureByCourseId
-  );
+  ).patch(isLoggedIn, authorizedRoles("Admin"), removeAllLecturesByCourseId);
 
 export default router;
