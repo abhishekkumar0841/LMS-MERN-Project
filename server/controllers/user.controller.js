@@ -74,6 +74,7 @@ const register = async (req, res, next) => {
 
     user.password = undefined;
 
+    //this line generates JWTToken for the user then pass this token in token variable
     const token = await user.generateJWTToken();
 
     // setting token to cookie
@@ -127,7 +128,6 @@ const login = async (req, res, next) => {
     return next(new AppError(error.message, 500));
   }
 };
-
 
 //***** logout Controller *****
 const logout = (req, res) => {
