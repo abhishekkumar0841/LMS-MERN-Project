@@ -1,12 +1,13 @@
 import './App.css'
+import { Routes } from 'react-router-dom'
 
 function App() {
 
   return (
     <>
-    <div className=' text-amber-700'>
-      lms
-    </div>
+      <Routes>
+
+      </Routes>
     </>
   )
 }
