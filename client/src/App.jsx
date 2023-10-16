@@ -4,7 +4,9 @@ function App() {
 
   return (
     <>
-    LMS
+    <div className=' text-amber-700'>
+      lms
+    </div>
     </>
   )
 }
