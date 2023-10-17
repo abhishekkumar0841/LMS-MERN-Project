@@ -21,7 +21,7 @@ const Footer = () => {
             </a>
 
             <a className="hover:text-yellow-500 transition-all ease-in-out duration-300">
-                <BsFacebook/>
+                <BsLinkedin/>
             </a>
 
             <a className="hover:text-yellow-500 transition-all ease-in-out duration-300">
