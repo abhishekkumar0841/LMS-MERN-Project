@@ -88,7 +88,7 @@ const Signup = () => {
     console.log("PRINTING RESPONSE from Signup.jsx->", response);
 
     if (response?.payload?.success) {
-      navigate("/");
+      navigate("/login");
     }
 
     setSignupData({

@@ -1,6 +1,7 @@
 import React from "react";
 import HomeLayout from "../Layouts/HomeLayout";
 import { Link } from "react-router-dom";
+import homePageMainImage from '../assets/Images/homePageMainImage.png'
 
 const HomePage = () => {
   return (
@@ -27,7 +28,7 @@ const HomePage = () => {
         </div>
 
         <div className="  w-1/2 flex justify-center items-center">
-            <img src="https://tse4.mm.bing.net/th?id=OIP.XzeycZtcet-ze1II3WdY-QHaHE&pid=Api&P=0&h=380" alt="Home Page Image" />
+            <img src={homePageMainImage} alt="Home Page Image" />
         </div>
       </div>
     </HomeLayout>
