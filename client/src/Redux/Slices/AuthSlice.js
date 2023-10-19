@@ -5,7 +5,7 @@ import axiosInstance from "../../Helpers/axiosInstance";
 const initialState = {
   isLoggedIn: localStorage.getItem("isLoggedIn") || false,
   role: localStorage.getItem("role") || "",
-  data: localStorage.getItem("data") || {},
+  data: JSON.parse(localStorage.getItem("data")) || {},
 };
 
 //creating asyncThunk for creating account
