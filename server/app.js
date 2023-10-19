@@ -8,6 +8,7 @@ import courseRoutes from './routes/course.routes.js'
 import errorMiddleware from "./middlewares/error.middleware.js";
 import paymentRoutes from './routes/payment.routes.js'
 config();
+import miscellaneousRoutes from './routes/miscellaneous.routes.js'
 
 // import  app from express ;
 const app = express();
@@ -41,6 +42,8 @@ app.use("/api/v1/user", userRoutes);
 app.use('/api/v1/courses', courseRoutes)
 
 app.use('/api/v1/payments', paymentRoutes)
+
+app.use('/api/v1/miscellaneous', miscellaneousRoutes)
 
 app.use("/", (req, res) => {
   res.send("Home page");
