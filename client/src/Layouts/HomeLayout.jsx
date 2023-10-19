@@ -29,14 +29,14 @@ const HomeLayout = ({ children }) => {
     drawerSide[0].style.width = "auto";
   };
 
-  const handleLogout = async()=>{
+  const handleLogout = async () => {
     // e.preventDefault();
-    const res = await dispatch(logout())
+    const res = await dispatch(logout());
 
-    if (res?.payload?.success){
-      navigate('/')
+    if (res?.payload?.success) {
+      navigate("/");
     }
-  }
+  };
 
   return (
     <div className=" min-h-[90vh]">
@@ -70,6 +70,12 @@ const HomeLayout = ({ children }) => {
               </li>
             )}
 
+            {isLoggedIn && role === "Admin" && (
+              <li>
+                <Link to={"/course/create"}>Create New Course</Link>
+              </li>
+            )}
+
             <li>
               <Link to={"/courses"}>All Courses</Link>
             </li>
@@ -83,28 +89,28 @@ const HomeLayout = ({ children }) => {
             {/* show only if user is not LoggedIn */}
             {!isLoggedIn && (
               <li className=" absolute bottom-4 w-[90%]">
-              <div className=" w-full flex items-center justify-center">
-                <button className=" btn-primary px-4 py-1 font-semibold rounded-md w-full">
-                  <Link to={"/login"}>Login</Link>
-                </button>
-                <button className=" btn-secondary px-4 py-1 font-semibold rounded-md w-full">
-                  <Link to={"/signup"}>Signup</Link>
-                </button>
-              </div>
+                <div className=" w-full flex items-center justify-center">
+                  <button className=" btn-primary px-4 py-1 font-semibold rounded-md w-full">
+                    <Link to={"/login"}>Login</Link>
+                  </button>
+                  <button className=" btn-secondary px-4 py-1 font-semibold rounded-md w-full">
+                    <Link to={"/signup"}>Signup</Link>
+                  </button>
+                </div>
               </li>
             )}
 
             {/* show only if user is LoggedIn */}
             {isLoggedIn && (
               <li className=" absolute bottom-4 w-[90%]">
-              <div className=" w-full flex items-center justify-center">
-                <button className=" btn-primary px-4 py-1 font-semibold rounded-md w-full">
-                  <Link to={"/user/profile"}>Profile</Link>
-                </button>
-                <button className=" btn-secondary px-4 py-1 font-semibold rounded-md w-full">
-                  <Link onClick={handleLogout}>Logout</Link>
-                </button>
-              </div>
+                <div className=" w-full flex items-center justify-center">
+                  <button className=" btn-primary px-4 py-1 font-semibold rounded-md w-full">
+                    <Link to={"/user/profile"}>Profile</Link>
+                  </button>
+                  <button className=" btn-secondary px-4 py-1 font-semibold rounded-md w-full">
+                    <Link onClick={handleLogout}>Logout</Link>
+                  </button>
+                </div>
               </li>
             )}
           </ul>
