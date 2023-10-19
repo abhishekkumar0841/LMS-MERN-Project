@@ -5,6 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { toast } from "react-hot-toast";
 import { createAccount } from "../Redux/Slices/AuthSlice";
+import { isEmail, isValidPassword } from "../Helpers/regexMatcher";
 
 const Signup = () => {
   const dispatch = useDispatch();
@@ -64,12 +65,12 @@ const Signup = () => {
     }
 
     //validating email
-    if (!signupData.email.match(/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/)) {
+    if (!isEmail(signupData.email)) {
       toast.error("Invalid Email Id!");
     }
 
     //validate password
-    if (!signupData.password.match(/^(?=.*[!@#$%^&*])(?=.*[A-Z]).{6,16}$/)) {
+    if (!isValidPassword(signupData.password)) {
       toast.error(
         "Password should be 6-16 characters with at least 1 uppercase & 1 special character"
       );
