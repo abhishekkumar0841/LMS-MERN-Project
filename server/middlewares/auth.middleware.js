@@ -1,5 +1,7 @@
 import jwt from "jsonwebtoken";
 import AppError from "../utils/error.utils.js";
+import User from "../models/user.model.js";
+import asyncHandler from 'express-async-handler'
 
 // ********AUTHENTICATION MIDDLEWARE************
 const isLoggedIn = async (req, res, next) => {
@@ -32,15 +34,35 @@ const authorizedRoles =
   };
 
 // ********AUTHORIZED SUBSCRIBER MIDDLEWARE************
-  const authorizedSubscriber = (req, res, next)=>{
-    const subscription = req.user.subscription;
-    const currentUserRole = req.user.role;
+// const authorizedSubscriber = async (req, res, next) => {
+//   // const subscription = req.user.subscription;
+//   // const currentUserRole = req.user.role;
 
-    if(currentUserRole !== 'Admin' && subscription.status !== 'active'){
-      return next(new AppError("Please subscribe to access this route", 403))
-    }
+//   try {
+//     const user = await User.findById(req.user.id);
 
-    next();
+//     console.log("user from authorizedSubscriber midW", user)
+
+//     if (user.role !== "Admin" && user.subscription.status !== "active") {
+//       return next(new AppError("Please subscribe to access this route", 403));
+//     }
+
+//     next();
+//   } catch (error) {
+//     return next(new AppError(error.message, 500));
+//   }
+// };
+
+export const authorizedSubscriber = asyncHandler(async (req, res, next) => {
+  const user = await User.findById(req.user.id);
+
+  console.log("user from authorizedSubscriber midW", user);
+
+  if (user.role !== "Admin" && user.subscription.status !== "active") {
+    return next(new AppError("Please subscribe to access this route", 403));
   }
 
-export { isLoggedIn, authorizedRoles, authorizedSubscriber };
+  next();
+});
+
+export { isLoggedIn, authorizedRoles };
