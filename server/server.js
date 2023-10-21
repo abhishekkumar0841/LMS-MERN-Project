@@ -15,7 +15,7 @@ cloudinary.v2.config({
 //razorpay configuration
 export const razorpay = new Razorpay({
   key_id: process.env.RAZORPAY_KEY_ID,
-  secret_key: process.env.RAZORPAY_SECRET,
+  key_secret: process.env.RAZORPAY_SECRET,
 })
 
 app.listen(PORT, async () => {

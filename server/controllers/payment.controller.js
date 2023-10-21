@@ -32,6 +32,7 @@ export const bySubscription = async (req, res, next) => {
     const subscription = await razorpay.subscriptions.create({
       plan_id: process.env.RAZORPAY_PLAN_ID,
       customer_notify: 1, //used for notifying to customer
+      total_count: 1, //total_count is required to allow customer how many times they can buy subscription within a time duration of 1 year. INITIALLY I MISS THIS OPTION SO I CANNOT GET THE RAZORPAY SDK ON CLIENT INTERFACE.
     });
 
     //storing subscriptionId and subscriptionStatus at user level
@@ -47,7 +48,11 @@ export const bySubscription = async (req, res, next) => {
       subscription_id: subscription.id,
     });
   } catch (error) {
-    return next(new AppError(error.message, 500));
+    // return next(new AppError(error.message, 500));
+    return res.status(500).json({
+      success: false,
+      message: error,
+    });
   }
 };
 
@@ -69,8 +74,10 @@ export const verifySubscription = async (req, res, next) => {
 
     const generatedSignature = crypto
       .createHmac("sha256", process.env.RAZORPAY_SECRET)
-      .update(`${razorpay_payment_id}|${subscriptionId}`);
+      .update(`${razorpay_payment_id}|${subscriptionId}`)
+      .digest("hex"); //i also forget to use .digest('hex') so, it takes a lot of time to debug😒
 
+      //comparing generated signature with received signature
     if (generatedSignature !== razorpay_signature) {
       return next(new AppError("Payment not verified, please try again!", 400));
     }
