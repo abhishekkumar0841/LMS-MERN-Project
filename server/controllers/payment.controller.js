@@ -114,26 +114,33 @@ export const cancelSubscription = async (req, res, next) => {
 
     const subscriptionId = user.subscription.id;
 
-    const subscription = await razorpay.subscriptions.cancel(subscriptionId);
+    try {
 
-    user.subscription.status = subscription.status;
+      console.log("PRINTING BEFORE SUBSCRIPTION")
 
-    await user.save();
+      console.log("SUBSCRIPTION ID->", subscriptionId)
 
-    res.status(200).json({
-      success: true,
-      message: "Subscription canceled successfully",
-      subscriptionStatus: subscription.status,
-    });
+      const subscription = await razorpay.subscriptions.cancel(subscriptionId);
 
+      console.log("PRINTING AFTER SUBSCRIPTION")
+
+      user.subscription.status = subscription.status;
+
+      await user.save();
+
+      res.status(200).json({
+        success: true,
+        message: "Subscription canceled successfully",
+        subscriptionStatus: subscription.status,
+      });
+    } catch (error) {
+      return next(new AppError("Error while canceling subscription", 400));
+    }
   } catch (error) {
     // console.error("Razorpay API Error:", error.response.data)
     return next(new AppError(error.message, 500));
   }
 };
-
-
-
 
 // export const cancelSubscription = asyncHandler(async (req, res, next) => {
 //   const { id } = req.user;
@@ -205,8 +212,6 @@ export const cancelSubscription = async (req, res, next) => {
 //     message: 'Subscription canceled successfully',
 //   });
 // });
-
-
 
 export const allPayments = async (req, res, next) => {
   try {

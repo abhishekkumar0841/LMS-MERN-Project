@@ -166,6 +166,8 @@ const addLectureByCourseId = async (req, res, next) => {
       try {
         const result = await cloudinary.v2.uploader.upload(req.file.path, {
           folder: "lms",
+          chunk_size: 50000000, //50mb size
+          resource_type: "video",
         });
         console.log("Printing Cloudinary upload result->", result);
         if (result) {
@@ -175,15 +177,20 @@ const addLectureByCourseId = async (req, res, next) => {
 
         fs.rm(`uploads/${req.file.filename}`);
       } catch (error) {
+        // Empty the uploads directory without deleting the uploads directory
+        for (const file of await fs.readdir("uploads/")) {
+          await fs.unlink(path.join("uploads/", file));
+        }
+
         return next(new AppError(error.message, 500));
       }
     }
 
     //pushing the lectureData into course.lectures
-    course.lectures.push(lectureData)
+    course.lectures.push(lectureData);
 
     //updating the number of lectures with course lectures length
-    course.numbersOfLectures = course.lectures.length
+    course.numbersOfLectures = course.lectures.length;
 
     await course.save();
 
@@ -191,7 +198,63 @@ const addLectureByCourseId = async (req, res, next) => {
       success: true,
       message: "Lectures successfully added to the course",
       course,
-    })
+    });
+  } catch (error) {
+    return next(new AppError(error.message, 500));
+  }
+};
+
+// *******REMOVE SINGLE LECTURES FROM COURSE ID CONTROLLER******
+// path--> /api/v1/courses/:courseId/lectures/:lectureId
+const removeLectureFromCourse = async (req, res, next) => {
+  try {
+    const { courseId, lectureId } = req.query;
+    if (!courseId) {
+      return next(new AppError("Course ID is required", 400));
+    }
+
+    if (!lectureId) {
+      return next(new AppError("Lecture ID is required", 400));
+    }
+
+    //finding course using course id
+    const course = await Course.findById(courseId);
+
+    if (!course) {
+      return next(new AppError("This course does't exist!", 404));
+    }
+
+    //finding index of the lecture using lectureId
+    const lectureIndex = course.lectures.findIndex(
+      (lecture) => lecture._id.toString() === lectureId.toString()
+    );
+
+    console.log("LECTURE INDEX->", lectureIndex);
+
+    //if returned index -1 then throw error
+    if (lectureIndex === -1) {
+      return next(new AppError("Lecture does not exist", 404));
+    }
+
+    //deleting lecture from cloudinary first
+    await cloudinary.v2.uploader.destroy(
+      course.lectures[lectureIndex].lecture.public_id,
+      {
+        resource_type: "video",
+      }
+    );
+
+    //removing lecture from course array to update length
+    course.lectures.splice(lectureIndex, 1);
+
+    course.numbersOfLectures = course.lectures.length;
+
+    course.save();
+
+    res.status(200).json({
+      success: true,
+      message: 'Course lecture removed successfully',
+    });
 
   } catch (error) {
     return next(new AppError(error.message, 500));
@@ -199,50 +262,33 @@ const addLectureByCourseId = async (req, res, next) => {
 };
 
 // *******REMOVE All LECTURES BY COURSE ID CONTROLLER******
-const removeAllLecturesByCourseId = async(req, res, next)=>{
-  const {id} = req.params;
-  
+const removeAllLecturesByCourseId = async (req, res, next) => {
+  const { id } = req.params;
+
   try {
-    const course = await Course.findById(id)
-    if(!course){
-      return next(new AppError("This course does not exist", 400))
+    const course = await Course.findById(id);
+    if (!course) {
+      return next(new AppError("This course does not exist", 400));
     }
 
-    if(course.lectures.length < 1){
-      return next(new AppError("This course does't have any lectures", 400))
+    if (course.lectures.length < 1) {
+      return next(new AppError("This course does't have any lectures", 400));
     }
 
-    course.lectures = []
+    course.lectures = [];
 
     course.numbersOfLectures = 0;
 
-    await course.save()
+    await course.save();
 
     res.status(200).json({
       success: true,
       message: "All Lectures successfully removed from the course",
     });
-
   } catch (error) {
-    return next(new AppError(error.message, 500))
+    return next(new AppError(error.message, 500));
   }
-}
-
-// *******REMOVE LECTURES BY ID WITH COURSE ID CONTROLLER****** T O D O IN FUTURE\\\\\
-// const removeLectureByCourseId = async (req, res, next)=>{
-//   try {
-//     const {id: courseId, lectureId} = req.params
-
-//     if(!courseId || !lectureId) {
-//       return next(new AppError("Both courseId and lectureId are required!"))
-//     }
-
-//     const course = await Course.findById(courseId)
-    
-//   } catch (error) {
-//     return next(new AppError(error.message, 500))
-//   }
-// }
+};
 
 export {
   getAllCourses,
@@ -251,5 +297,6 @@ export {
   updateCourse,
   removeCourse,
   addLectureByCourseId,
-  removeAllLecturesByCourseId
+  removeAllLecturesByCourseId,
+  removeLectureFromCourse,
 };
