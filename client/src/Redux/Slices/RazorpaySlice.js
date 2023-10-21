@@ -94,17 +94,19 @@ const razorpaySlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(getRazorPayId.fulfilled, (state, action) => {
-        state.key = action.payload.key;
+        state.key = action?.payload?.key;
       })
       .addCase(purchaseCourseBundle.fulfilled, (state, action) => {
         state.subscription_id = action?.payload?.subscription_id;
       })
       .addCase(verifyUserPayment.fulfilled, (state, action) => {
-        toast.success(action?.payload?.success);
+        console.log("Action when fulfilled->", action)
+        toast.success(action?.payload?.message);
         state.isPaymentVerified = action?.payload?.success;
       })
       .addCase(verifyUserPayment.rejected, (state, action) => {
-        toast.error(action?.payload?.success);
+        console.log("Action when rejected->", action)
+        toast.success(action?.payload?.message);
         state.isPaymentVerified = action?.payload?.success;
       })
       .addCase(getPaymentRecord.fulfilled, (state, action) => {
