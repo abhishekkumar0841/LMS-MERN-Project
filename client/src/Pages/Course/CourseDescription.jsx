@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 
 const CourseDescription = () => {
   const { state } = useLocation();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const { role, data } = useSelector((state) => state.auth);
 
@@ -38,11 +38,19 @@ const CourseDescription = () => {
               </div>
 
               {role === "Admin" || data?.subscription?.status === "active" ? (
-                <button className=" bg-yellow-600 text-xl rounded-md font-bold px-5 py-3 w-full hover:bg-yellow-500 transition-all duration-300 ease-in-out">
+                <button
+                  onClick={() =>
+                    navigate("/course/displaylectures", { state: { ...state } })
+                  }
+                  className=" bg-yellow-600 text-xl rounded-md font-bold px-5 py-3 w-full hover:bg-yellow-500 transition-all duration-300 ease-in-out"
+                >
                   Watch Lectures
                 </button>
               ) : (
-                <button onClick={()=> navigate('/checkout')} className=" bg-yellow-600 text-xl rounded-md font-bold px-5 py-3 w-full hover:bg-yellow-500 transition-all duration-300 ease-in-out">
+                <button
+                  onClick={() => navigate("/checkout")}
+                  className=" bg-yellow-600 text-xl rounded-md font-bold px-5 py-3 w-full hover:bg-yellow-500 transition-all duration-300 ease-in-out"
+                >
                   Subscribe
                 </button>
               )}
@@ -53,12 +61,8 @@ const CourseDescription = () => {
             <h1 className=" text-3xl font-bold text-yellow-500 mb-4 text-center">
               {state?.title}
             </h1>
-            <p className=" text-yellow-500">
-                Course Description :{" "} 
-            </p>
-            <p>
-                {state?.description}
-            </p>
+            <p className=" text-yellow-500">Course Description : </p>
+            <p>{state?.description}</p>
           </div>
         </div>
       </div>

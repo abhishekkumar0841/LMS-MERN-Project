@@ -8,7 +8,6 @@ import toast from "react-hot-toast";
 
 const Profile = () => {
   const userData = useSelector((state) => state?.auth?.data);
-  console.log(userData.subscription.status);
 
   const dispatch = useDispatch();
   const navigate  = useNavigate()

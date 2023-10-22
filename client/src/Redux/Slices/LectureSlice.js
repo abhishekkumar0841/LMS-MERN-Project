@@ -82,7 +82,6 @@ const lectureSlice = createSlice({
         console.log("ADD COURSE LECTURES ACTION-->", action)
         state.lectures = action?.payload?.course?.lectures
     })
-    .addCase()
   },
 });
 
