@@ -17,6 +17,7 @@ import Checkout from "./Pages/Payment/Checkout";
 import CheckoutSuccess from "./Pages/Payment/CheckoutSuccess";
 import CheckoutFailure from "./Pages/Payment/CheckoutFailure";
 import DisplayLectures from "./Pages/Dashboard/DisplayLectures";
+import AddLecture from "./Pages/Dashboard/AddLecture";
 
 function App() {
   return (
@@ -40,16 +41,17 @@ function App() {
         {/* specific routes only for Admin */}
         <Route element={<RequireAuth allowedRoles={["Admin"]} />}>
           <Route path="/course/create" element={<CreateCourse />} />
+          <Route path="/course/addlecture" element={<AddLecture />} />
         </Route>
 
         {/* user profile routes */}
-        <Route element={<RequireAuth allowedRoles={["Admin", "User"]}/>} >
+        <Route element={<RequireAuth allowedRoles={["Admin", "User"]} />}>
           <Route path="/user/profile" element={<Profile />} />
           <Route path="/user/editprofile" element={<EditProfile />} />
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/checkout/success" element={<CheckoutSuccess />} />
           <Route path="/checkout/fail" element={<CheckoutFailure />} />
-          <Route path="/course/displaylectures" element={<DisplayLectures/>} />
+          <Route path="/course/displaylectures" element={<DisplayLectures />} />
         </Route>
 
         {/* Error Page Route */}
