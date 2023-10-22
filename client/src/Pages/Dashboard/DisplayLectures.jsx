@@ -6,6 +6,7 @@ import {
   deleteCourseLectures,
   getCourseLectures,
 } from "../../Redux/Slices/LectureSlice";
+import { AiOutlineArrowLeft } from "react-icons/ai";
 
 const DisplayLectures = () => {
   const navigate = useNavigate();
@@ -38,10 +39,10 @@ const DisplayLectures = () => {
     <HomeLayout>
       <div className=" flex flex-col gap-10 items-center justify-center min-h-[90vh] py-10 text-white mx-5">
         <div className=" text-center text-2xl font-semibold text-yellow-500">
-          Course Name {state?.title}
+          Course Name : {state?.title}
         </div>
 
-        {lectures.length > 0 && (
+        {lectures.length > 0 ? (
           <div className=" flex justify-center w-full gap-10">
             {/* leftSection for playing videos and displaying course details to admin */}
             <div className=" space-y-5 w-[28rem] p-2 rounded-lg shadow-[0_0_10px_black]">
@@ -105,6 +106,41 @@ const DisplayLectures = () => {
                   </li>
                 ))}
             </ul>
+          </div>
+        ) : (
+          <div className=" flex flex-col items-center gap-y-5">
+            {role === "User" && (
+              <>
+                {" "}
+                <h1 className="font-bold text-2xl tracking-wider">
+                  Currently, No lectures available here, please come back after
+                  a while!
+                </h1>
+                <button
+                  onClick={() => navigate(-1)}
+                  className=" btn btn-accent text-2xl"
+                >
+                  <AiOutlineArrowLeft /> Go Back
+                </button>
+              </>
+            )}
+
+            {role === "Admin" && (
+              <>
+                <h1  className="font-bold text-2xl tracking-wider">
+                  No Lectures! If you want to add click on the below
+                  button
+                </h1>
+                <button
+                  onClick={() =>
+                    navigate("/course/addlecture", { state: { ...state } })
+                  }
+                  className=" btn-primary px-2 py-1 rating-md text-sm font-semibold"
+                >
+                  Add new lecture
+                </button>
+              </>
+            )}
           </div>
         )}
       </div>
