@@ -43,7 +43,7 @@ app.use('/api/v1/courses', courseRoutes)
 
 app.use('/api/v1/payments', paymentRoutes)
 
-app.use('/api/v1/miscellaneous', miscellaneousRoutes)
+app.use('/api/v1', miscellaneousRoutes)
 
 app.use("/", (req, res) => {
   res.send("Home page");
