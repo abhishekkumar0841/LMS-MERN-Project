@@ -109,7 +109,7 @@ const EditProfile = () => {
             />
           </div>
           <button
-            className=" w-full bg-yellow-600 hover:bg-yellow-500 transition-all duration-300 ease-in-out rounded-sm py-2 tab-lg cursor-pointer"
+            className=" w-full bg-yellow-600 hover:bg-yellow-500 transition-all duration-300 ease-in-out rounded-sm py-2 text-lg cursor-pointer"
             type="submit"
           >
             Update Profile
