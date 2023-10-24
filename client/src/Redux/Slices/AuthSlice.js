@@ -110,6 +110,42 @@ export const changePassword = createAsyncThunk(
   }
 );
 
+//asyncThunk for forget-password
+export const forgetPassword = createAsyncThunk(
+  "/user/forget/password",
+  async (data) => {
+    try {
+      const response = axiosInstance.post("/user/reset", data);
+      toast.promise(response, {
+        loading: "Sending reset password link on your email",
+        success: `Reset password link send at ${data?.email}`,
+        error: "Failed to send reset password link, try again!",
+      });
+      return (await response).data;
+    } catch (error) {
+      toast.error(error.message);
+    }
+  }
+);
+
+//asyncThunk for reset-password
+export const resetPassword = createAsyncThunk(
+  "/user/reset/password",
+  async (data) => {
+    try {
+      const response = axiosInstance.post(`/user/reset/${data[0]}`, data[1]);
+      toast.promise(response, {
+        loading: "Password reset is in progress",
+        success: "Password reset successfully",
+        error: "Failed to reset password, try again",
+      });
+      return (await response).data;
+    } catch (error) {
+      toast.error(error.message);
+    }
+  }
+);
+
 const authSlice = createSlice({
   name: "auth",
   initialState,

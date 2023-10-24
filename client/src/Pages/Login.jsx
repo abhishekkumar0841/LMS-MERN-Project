@@ -10,10 +10,10 @@ const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const [showPassword, setShowPassword] = useState(false)
+  const [showPassword, setShowPassword] = useState(false);
 
-  function toggleShowPassword(){
-    setShowPassword(!showPassword)
+  function toggleShowPassword() {
+    setShowPassword(!showPassword);
   }
 
   const [loginData, setLoginData] = useState({
@@ -83,16 +83,17 @@ const Login = () => {
             <input
               value={loginData.password}
               onChange={handleUserInput}
-              type={!showPassword ? 'password' : 'text'}
+              type={!showPassword ? "password" : "text"}
               name="password"
               id="password"
               placeholder="Enter Your Password"
               className=" bg-transparent px-2 py-1 border rounded-sm"
             />
-            <div onClick={toggleShowPassword} className=" absolute right-2 top-9 text-lg">
-              {
-                !showPassword ? (<AiFillEyeInvisible/>) : (<AiFillEye/>)
-              }
+            <div
+              onClick={toggleShowPassword}
+              className=" absolute right-2 top-9 text-lg"
+            >
+              {!showPassword ? <AiFillEyeInvisible /> : <AiFillEye />}
             </div>
           </div>
 
@@ -102,6 +103,10 @@ const Login = () => {
           >
             Login
           </button>
+
+          <p className=" text-accent font-semibold">
+            <Link to={'/login/forget-password'}>Forget Password?</Link>
+          </p>
 
           <p className=" text-center flex items-center justify-between gap-5">
             Do not have an account?{" "}

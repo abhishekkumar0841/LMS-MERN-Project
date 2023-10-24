@@ -20,6 +20,8 @@ import DisplayLectures from "./Pages/Dashboard/DisplayLectures";
 import AddLecture from "./Pages/Dashboard/AddLecture";
 import AdminDashboard from "./Pages/Dashboard/AdminDashboard";
 import ChangePassword from "./Pages/User/ChangePassword";
+import ForgetPassword from "./Pages/User/ForgetPassword";
+import ResetPassword from "./Pages/User/ResetPassword";
 
 function App() {
   return (
@@ -29,6 +31,8 @@ function App() {
         <Route path="/about" element={<AboutUs />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/login/forget-password" element={<ForgetPassword />} />
+        <Route path="/reset-password/:resetToken" element={<ResetPassword/>} />
 
         {/* Course routes */}
         <Route path="/courses" element={<CourseList />} />
@@ -51,7 +55,7 @@ function App() {
         <Route element={<RequireAuth allowedRoles={["Admin", "User"]} />}>
           <Route path="/user/profile" element={<Profile />} />
           <Route path="/user/editprofile" element={<EditProfile />} />
-          <Route path="/user/changepassword" element={<ChangePassword/>} />
+          <Route path="/user/changepassword" element={<ChangePassword />} />
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/checkout/success" element={<CheckoutSuccess />} />
           <Route path="/checkout/fail" element={<CheckoutFailure />} />
