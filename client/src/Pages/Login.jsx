@@ -4,10 +4,17 @@ import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { toast } from "react-hot-toast";
 import { login } from "../Redux/Slices/AuthSlice";
+import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const [showPassword, setShowPassword] = useState(false)
+
+  function toggleShowPassword(){
+    setShowPassword(!showPassword)
+  }
 
   const [loginData, setLoginData] = useState({
     email: "",
@@ -69,19 +76,24 @@ const Login = () => {
             />
           </div>
 
-          <div className="flex flex-col gap-1 w-full">
+          <div className="flex flex-col gap-1 w-full relative">
             <label htmlFor="password" className=" font-semibold">
               Password
             </label>
             <input
               value={loginData.password}
               onChange={handleUserInput}
-              type=""
+              type={!showPassword ? 'password' : 'text'}
               name="password"
               id="password"
               placeholder="Enter Your Password"
               className=" bg-transparent px-2 py-1 border rounded-sm"
             />
+            <div onClick={toggleShowPassword} className=" absolute right-2 top-9 text-lg">
+              {
+                !showPassword ? (<AiFillEyeInvisible/>) : (<AiFillEye/>)
+              }
+            </div>
           </div>
 
           <button

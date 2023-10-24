@@ -6,10 +6,17 @@ import { useDispatch } from "react-redux";
 import { toast } from "react-hot-toast";
 import { createAccount } from "../Redux/Slices/AuthSlice";
 import { isEmail, isValidPassword } from "../Helpers/regexMatcher";
+import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 
 const Signup = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const [showPassword, setShowPassword] = useState(false);
+
+  function togglePasswordIcon() {
+    setShowPassword(!showPassword);
+  }
 
   const [previewImage, setPreviewImage] = useState("");
 
@@ -39,12 +46,12 @@ const Signup = () => {
         avatar: uploadedImage,
       });
 
-      console.log("Printing signup data->", signupData)
+      console.log("Printing signup data->", signupData);
 
       const fileReader = new FileReader();
       fileReader.readAsDataURL(uploadedImage);
       fileReader.addEventListener("load", function () {
-        console.log("File reader result->", this.result)
+        console.log("File reader result->", this.result);
         setPreviewImage(this.result);
       });
     }
@@ -106,6 +113,7 @@ const Signup = () => {
     <HomeLayout>
       <div className="flex items-center justify-center h-[100vh]">
         <form
+          noValidate
           onSubmit={createNewAccount}
           className="flex flex-col justify-center items-center gap-3 rounded-lg p-4 text-white w-96 shadow-[0_0_10px_black]"
         >
@@ -161,19 +169,20 @@ const Signup = () => {
             />
           </div>
 
-          <div className="flex flex-col gap-1 w-full">
+          <div className="flex flex-col gap-1 w-full relative">
             <label htmlFor="password" className=" font-semibold">
               Password
             </label>
             <input
               value={signupData.password}
               onChange={handleUserInput}
-              type=""
+              type={!showPassword ? "password" : "text"}
               name="password"
               id="password"
               placeholder="Enter Your Password"
               className=" bg-transparent px-2 py-1 border rounded-sm"
             />
+            <div onClick={togglePasswordIcon} className="absolute right-2 top-9 text-lg">{!showPassword ? <AiFillEyeInvisible /> : <AiFillEye />}</div>
           </div>
 
           <button
