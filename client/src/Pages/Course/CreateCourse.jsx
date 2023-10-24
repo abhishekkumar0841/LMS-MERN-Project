@@ -81,13 +81,13 @@ const CreateCourse = () => {
           onSubmit={onFormSubmit}
           className=" flex flex-col justify-center gap-5 rounded-lg p-4 text-white w-[700px] my-10 shadow-[0_0_10px_black] relative"
         >
-          <Link onClick={()=> navigate(-1)} className=" absolute top-3 text-4xl text-accent cursor-pointer link">
+          <Link onClick={()=> navigate(-1)} className=" hidden sm:block absolute top-3 text-4xl text-accent cursor-pointer link">
             <AiOutlineArrowLeft />
           </Link>
 
           <h1 className=" text-center font-bold text-2xl">Create New Course</h1>
 
-          <main className=" grid grid-cols-2 gap-x-10">
+          <main className=" grid grid-cols-1 md:grid-cols-2 gap-x-10">
             <div className=" gap-y-6">
               <div className=" w-full h-44 m-auto flex items-center justify-center border">
                 <label htmlFor="image_uploads" className=" cursor-pointer">
@@ -115,7 +115,7 @@ const CreateCourse = () => {
                 />
               </div>
 
-              <div className=" flex flex-col gap-1 ">
+              <div className=" flex flex-col gap-1 mt-4">
                 <label htmlFor="title" className=" text-lg font-semibold">
                   Course Title
                 </label>
@@ -132,7 +132,7 @@ const CreateCourse = () => {
               </div>
             </div>
 
-            <div className=" flex flex-col gap-1">
+            <div className=" flex flex-col md:gap-1 gap-4 mt-4 md:mt-0">
               <div className=" flex flex-col gap-1">
                 <label htmlFor="createdBy" className=" text-lg font-semibold">
                   Course Instructor

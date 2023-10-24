@@ -102,18 +102,18 @@ const AdminDashboard = () => {
 
   return (
     <HomeLayout>
-      <div className=" min-h-[90vh] pt-5 flex flex-col flex-wrap gap-10 text-white">
-        <h1 className=" text-center text-5xl font-semibold text-yellow-500">
+      <div className=" min-h-[90vh] py-12 px-5 flex flex-col flex-wrap gap-10 text-white">
+        <h1 className=" text-center text-3xl sm:text-4xl md:text-5xl font-semibold text-yellow-500">
           Admin Dashboard
         </h1>
-        <div className=" grid grid-cols-2 gap-5 m-auto mx-10">
+        <div className=" grid grid-cols-1 lg:grid-cols-2 content-center gap-5 m-auto mx-10">
           <div className=" flex flex-col items-center gap-10 p-5 shadow-lg rounded-md">
             <div className=" w-80 h-80">
               <Pie data={userData} />
             </div>
 
-            <div className="grid grid-cols-2 gap-5">
-              <div className=" flex items-center justify-between p-5 gap-5 rounded-md shadow-md">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+              <div className=" flex items-center flex-col lg:flex-row justify-between p-5 gap-5 rounded-md shadow-md">
                 <div className=" flex flex-col items-center">
                   <p className=" font-semibold">Registered Users</p>
                   <h3 className=" text-4xl font-bold">{allUsersCount}</h3>
@@ -121,7 +121,7 @@ const AdminDashboard = () => {
                 <FaUsers className=" text-yellow-500 text-5xl " />
               </div>
 
-              <div className=" flex items-center justify-between p-5 gap-5 rounded-md shadow-md">
+              <div className=" flex items-center flex-col lg:flex-row justify-between p-5 gap-5 rounded-md shadow-md">
                 <div className=" flex flex-col items-center">
                   <p className=" font-semibold">Subscribed Users</p>
                   <h3 className=" text-4xl font-bold">{subscribedCount}</h3>
@@ -132,12 +132,12 @@ const AdminDashboard = () => {
           </div>
 
           <div className="flex flex-col items-center gap-10 p-5 shadow-lg rounded-md">
-            <div className=" h-80 relative w-full">
-              <Bar className="absolute bottom-0 h-80 w-full" data={sellsData} />
+            <div className=" h-80 relative w-full border">
+              <Bar className="absolute bottom-0 h-96 lg:h-80 w-full" data={sellsData} />
             </div>
 
-            <div className=" grid grid-cols-2 gap-5">
-              <div className=" flex items-center justify-between p-5 gap-5 rounded-md shadow-md">
+            <div className=" grid grid-cols-1 sm:grid-cols-2 gap-5">
+              <div className=" flex items-center flex-col md:flex-row justify-between p-5 gap-5 rounded-md shadow-md">
                 <div className=" flex flex-col items-center">
                   <p className=" font-semibold">Subscription Count</p>
                   <h3 className=" text-4xl font-bold">{allPayments?.count}</h3>
@@ -145,7 +145,7 @@ const AdminDashboard = () => {
                 <FcSalesPerformance className=" text-yellow-500 text-5xl " />
               </div>
 
-              <div className=" flex items-center justify-between p-5 gap-5 rounded-md shadow-md">
+              <div className=" flex items-center flex-col md:flex-row justify-between p-5 gap-5 rounded-md shadow-md">
                 <div className=" flex flex-col items-center">
                   <p className=" font-semibold">Total Revenue</p>
                   {allPayments?.count && (
@@ -160,8 +160,8 @@ const AdminDashboard = () => {
           </div>
         </div>
 
-        <div className=" mx-[10%] w-[80%] flex flex-col items-center justify-center gap-10 mb-10">
-          <div className="flex w-full items-center justify-between">
+        <div className=" mx-auto w-[95%] flex flex-col items-center justify-center gap-10 mb-10 shadow-[0_0_10px_black] p-4 rounded-md">
+          <div className="flex w-full flex-col sm:flex-row gap-5 items-center justify-between">
             <h1 className=" text-center text-3xl font-semibold">
               Course Overview
             </h1>
@@ -174,7 +174,8 @@ const AdminDashboard = () => {
             </button>
           </div>
 
-          <table className=" table overflow-x-scroll">
+          <div className="w-full overflow-x-scroll">
+          <table className=" table table-auto ">
             <thead>
               <tr>
                 <th>S No.</th>
@@ -230,7 +231,9 @@ const AdminDashboard = () => {
               ))}
             </tbody>
           </table>
+          </div>
         </div>
+        
       </div>
     </HomeLayout>
   );

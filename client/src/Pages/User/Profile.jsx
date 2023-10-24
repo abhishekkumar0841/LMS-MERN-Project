@@ -25,39 +25,39 @@ const Profile = () => {
   return (
     <HomeLayout>
       <div className=" min-h-[90vh] flex items-center justify-center">
-        <div className=" my-10 flex flex-col gap-4 rounded-lg p-4 text-white w-96 shadow-[0_0_10px_black]">
+        <div className=" my-10 flex flex-col gap-4 rounded-lg p-4 text-white w-[90%] sm:w-auto shadow-[0_0_10px_black]">
           <img
             src={userData?.avatar?.secure_url}
             className=" w-40 m-auto rounded-full border border-black"
           />
 
-          <h3 className=" text-2xl font-semibold text-center capitalize">
+          <h3 className=" text-2xl font-semibold text-center text-yellow-500 capitalize">
             {userData?.fullName}
           </h3>
 
-          <div className="grid grid-cols-2 ">
-            <p>Email:</p> <p>{userData?.email}</p>
-            <p>Role:</p> <p>{userData?.role}</p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 ">
+            <p>Email:</p> <p className=" text-yellow-500">{userData?.email}</p>
+            <p>Role:</p> <p className=" text-yellow-500">{userData?.role}</p>
             {/* TODO: only show subscription if user is not admin */}
             <p>Subscription:</p>{" "}
-            <p>
+            <p className="text-yellow-500">
               {userData?.subscription?.status === "active"
                 ? "Active"
                 : "Inactive"}
             </p>
           </div>
 
-          <div className=" flex items-center justify-between gap-2">
+          <div className=" flex flex-col sm:flex-row items-center justify-between gap-2">
             <Link
               to={"/user/changepassword"}
-              className=" w-1/2 bg-yellow-600 hover:bg-yellow-500 transition-all duration-300 ease-in-out rounded-sm cursor-pointer text-center font-semibold py-2"
+              className=" w-full sm:w-1/2 bg-yellow-600 hover:bg-yellow-500 transition-all duration-300 ease-in-out rounded-sm cursor-pointer text-center font-semibold py-2"
             >
               <button>Change Password</button>
             </Link>
 
             <Link
               to={"/user/editprofile"}
-              className=" w-1/2 bg-yellow-600 hover:bg-yellow-500 transition-all duration-300 ease-in-out rounded-sm cursor-pointer text-center font-semibold py-2"
+              className=" w-full sm:w-1/2 bg-yellow-600 hover:bg-yellow-500 transition-all duration-300 ease-in-out rounded-sm cursor-pointer text-center font-semibold py-2"
             >
               <button>Edit Profile</button>
             </Link>

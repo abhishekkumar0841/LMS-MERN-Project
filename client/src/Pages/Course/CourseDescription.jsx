@@ -11,8 +11,8 @@ const CourseDescription = () => {
 
   return (
     <HomeLayout>
-      <div className=" min-h-[90vh] pt-12 px-20 flex flex-col items-center justify-center text-white">
-        <div className=" grid grid-cols-2 gap-10 py-10 relative">
+      <div className=" min-h-[90vh] pt-20 px-10 md:px-20 flex flex-col items-center justify-center text-white">
+        <div className=" grid grid-cols-1 md:grid-cols-2 gap-10 py-10 relative">
           <div className=" space-y-5">
             <img
               src={state?.thumbnail?.secure_url}
@@ -24,7 +24,7 @@ const CourseDescription = () => {
               <div className=" flex flex-col items-center justify-between text-xl">
                 <p className=" font-semibold">
                   <span className="  text-yellow-500 font-bold">
-                    Total Lectures is :{" "}
+                    Total Lectures :{" "}
                   </span>
                   {state?.numbersOfLectures}
                 </p>

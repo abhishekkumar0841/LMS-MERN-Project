@@ -3,8 +3,11 @@ import HomeLayout from "../Layouts/HomeLayout";
 import toast from "react-hot-toast";
 import { isEmail, isValidPassword } from "../Helpers/regexMatcher";
 import axiosInstance from "../Helpers/axiosInstance";
+import { AiOutlineArrowLeft } from "react-icons/ai";
+import { Link, useNavigate } from "react-router-dom";
 
 const Contact = () => {
+  const navigate = useNavigate()
   const [userInput, setUserInput] = useState({
     name: "",
     email: "",
@@ -32,7 +35,7 @@ const Contact = () => {
     }
 
     try {
-      const response = axiosInstance.post("/miscellaneous/contact", userInput);
+      const response = axiosInstance.post("/contact", userInput);
       toast.promise(response, {
         loading: "Sending Message",
         success: "Message send successfully, We connect with you ASAP",
@@ -41,14 +44,13 @@ const Contact = () => {
 
       const contactResponse = await response;
 
-      if(contactResponse?.data?.success){
+      if (contactResponse?.data?.success) {
         setUserInput({
           name: "",
           email: "",
-          message: "", 
-        })
+          message: "",
+        });
       }
-
     } catch (error) {
       toast.error("Error while sending message, try again later");
     }
@@ -60,8 +62,14 @@ const Contact = () => {
         <form
           onSubmit={onFormSubmit}
           noValidate
-          className=" flex flex-col items-center justify-center gap-2 p-5 rounded-md text-white shadow-[0_0_10px_black] w-[22rem]"
+          className=" flex flex-col items-center justify-center gap-2 p-5 rounded-md text-white shadow-[0_0_10px_black] w-[22rem] relative"
         >
+          <Link
+            onClick={() => navigate(-1)}
+            className=" absolute top-5 left-2 text-4xl text-accent cursor-pointer link"
+          >
+            <AiOutlineArrowLeft />
+          </Link>
           <h1 className=" text-3xl font-semibold">Contact Form</h1>
 
           <div className="flex flex-col w-full gap-1 ">

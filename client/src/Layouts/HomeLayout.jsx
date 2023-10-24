@@ -40,7 +40,7 @@ const HomeLayout = ({ children }) => {
 
   return (
     <div className=" min-h-[90vh]">
-      <div className=" drawer absolute left-0 z-50 w-fit">
+      <div className=" drawer absolute left-0 z-50 w-full">
         <input className="drawer-toggle" id="my-drawer" type="checkbox" />
         <div className="drawer-content">
           <label htmlFor="my-drawer" className=" cursor-pointer relative">
@@ -53,47 +53,47 @@ const HomeLayout = ({ children }) => {
         </div>
         <div className="drawer-side w-0">
           <label htmlFor="my-drawer" className="drawer-overlay"></label>
-          <ul className="menu p-4 w-48 h-[100%] sm:w-80 bg-base-200 text-base-content relative">
+          <ul className="menu p-4 w-[100vw] sm:w-80 h-[100%] bg-base-200 text-base-content relative">
             <li className="w-fit absolute right-2 z-50">
               <button onClick={hideDrawer}>
                 <AiFillCloseCircle size={24} />
               </button>
             </li>
-            <li>
+            <li className="text-2xl sm:text-3xl font-semibold">
               <Link to={"/"}>Home</Link>
             </li>
 
             {/* only render this li if user is logged in and his/her role is of Admin */}
             {isLoggedIn && role === "Admin" && (
-              <li>
+              <li className="text-2xl sm:text-3xl font-semibold">
                 <Link to={"/admin/dashboard"}>Admin Dashboard</Link>
               </li>
             )}
 
             {isLoggedIn && role === "Admin" && (
-              <li>
-                <Link to={"/course/create"}>Create New Course</Link>
+              <li className="text-2xl sm:text-3xl font-semibold">
+                <Link to={"/course/create"}>Add New Course</Link>
               </li>
             )}
 
-            <li>
+            <li className="text-2xl sm:text-3xl font-semibold">
               <Link to={"/courses"}>All Courses</Link>
             </li>
-            <li>
+            <li className="text-2xl sm:text-3xl font-semibold">
               <Link to={"/contact"}>Contact Us</Link>
             </li>
-            <li>
+            <li className="text-2xl sm:text-3xl font-semibold">
               <Link to={"/about"}>About Us</Link>
             </li>
 
             {/* show only if user is not LoggedIn */}
             {!isLoggedIn && (
               <li className=" absolute bottom-4 w-[90%]">
-                <div className=" w-full flex items-center justify-center">
-                  <button className=" btn-primary px-4 py-1 font-semibold rounded-md w-full">
+                <div className=" w-full flex flex-col items-center gap-5 justify-center">
+                  <button className=" btn-primary px-4 py-2 text-2xl font-semibold rounded-md w-full">
                     <Link to={"/login"}>Login</Link>
                   </button>
-                  <button className=" btn-secondary px-4 py-1 font-semibold rounded-md w-full">
+                  <button className=" btn-secondary px-4 py-2 text-2xl font-semibold rounded-md w-full">
                     <Link to={"/signup"}>Signup</Link>
                   </button>
                 </div>
@@ -103,11 +103,11 @@ const HomeLayout = ({ children }) => {
             {/* show only if user is LoggedIn */}
             {isLoggedIn && (
               <li className=" absolute bottom-4 w-[90%]">
-                <div className=" w-full flex items-center justify-center">
-                  <button className=" btn-primary px-4 py-1 font-semibold rounded-md w-full">
+                <div className=" w-full flex flex-col items-center gap-5 justify-center">
+                  <button className=" btn-primary px-4 py-2 text-2xl  font-semibold rounded-md w-full">
                     <Link to={"/user/profile"}>Profile</Link>
                   </button>
-                  <button className=" btn-secondary px-4 py-1 font-semibold rounded-md w-full">
+                  <button className=" btn-secondary px-4 py-2 text-2xl  font-semibold rounded-md w-full">
                     <Link onClick={handleLogout}>Logout</Link>
                   </button>
                 </div>
