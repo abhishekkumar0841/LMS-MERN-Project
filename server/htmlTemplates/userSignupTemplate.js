@@ -1,11 +1,11 @@
-export const resetPassTemplate = (resetPasswordURL)=>{
+export default function userSignupTemplate(name, loginUrl){
     return `<!DOCTYPE html>
     <html lang="en">
     
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Tech. Edu. || Reset Password</title>
+        <title>Tech. Edu. || Registration Successful</title>
         <style>
             * {
                 margin: 0;
@@ -71,20 +71,22 @@ export const resetPassTemplate = (resetPasswordURL)=>{
                 <p>an educational platform</p>
             </div>
             <div class="heading">
-                <h1>You can reset your password by just clicking on the link below</h1>
+                <h1>Congratulations ${name}</h1>
+                <h1>You are successfully registered with us.</h1>
+                <h3>Click on the button below and start your journey of learning</h3>
             </div>
             <div class="message">
                 <div class="link">
-                    <a href="${resetPasswordURL}" target="_blank">Reset Your Password</a>
+                    <a href="${loginUrl}" target="_blank">Login Here</a>
                 </div>
                 <div class="subHeading">
                     If the above link does not work for some reason, please copy and paste this link in a new tab:
                     <br>
-                    <a href="${resetPasswordURL}">${resetPasswordURL}</a>
+                    <a href="${loginUrl}">${loginUrl}</a>
                 </div>
             </div>
             <div class="ignoreMsg">
-                If you have not requested this, kindly ignore and enjoy our services.
+                Thank you for registered with Tech. Edu. an educational platform.
             </div>
         </div>
     </body>

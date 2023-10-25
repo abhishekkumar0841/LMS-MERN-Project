@@ -1,11 +1,27 @@
-export const resetPassTemplate = (resetPasswordURL)=>{
-    return `<!DOCTYPE html>
+export default function subscribeTemplate(name, subscriptionId, coursePageUrl) {
+  const validityTimeStamps = Date.now() + 365 * 24 * 60 * 60 * 1000;
+  const expirationDate = new Date(validityTimeStamps);
+  const options = {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+    timeZoneName: "short",
+  };
+  const formattedExpirationDate = expirationDate.toLocaleDateString(
+    undefined,
+    options
+  );
+
+  return `<!DOCTYPE html>
     <html lang="en">
     
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Tech. Edu. || Reset Password</title>
+        <title>Tech. Edu. || Subscribe Successful</title>
         <style>
             * {
                 margin: 0;
@@ -71,23 +87,32 @@ export const resetPassTemplate = (resetPasswordURL)=>{
                 <p>an educational platform</p>
             </div>
             <div class="heading">
-                <h1>You can reset your password by just clicking on the link below</h1>
+                <h1>Congratulations ${name}</h1>
+                <h1>Thankyou for subscribing us.</h1>
+                <h3>Now you can able to enjoy our all courses any where at any time.</h3>
+            </div>
+            <div>
+                <h3>Your Subscription Id : ${subscriptionId}</h3>
+                <h3>Subscription Valid till : ${formattedExpirationDate}</h3>
+            </div>
+            <div>
+                <h3>Click on the button below and start your journey of learning</h3>
             </div>
             <div class="message">
                 <div class="link">
-                    <a href="${resetPasswordURL}" target="_blank">Reset Your Password</a>
+                    <a href="${coursePageUrl}" target="_blank">Login Here</a>
                 </div>
                 <div class="subHeading">
                     If the above link does not work for some reason, please copy and paste this link in a new tab:
                     <br>
-                    <a href="${resetPasswordURL}">${resetPasswordURL}</a>
+                    <a href="${coursePageUrl}">${coursePageUrl}</a>
                 </div>
             </div>
             <div class="ignoreMsg">
-                If you have not requested this, kindly ignore and enjoy our services.
+                Thank you for subscribing us || Tech. Edu. an educational platform.
             </div>
         </div>
     </body>
     
-    </html>`
+    </html>`;
 }

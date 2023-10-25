@@ -5,6 +5,7 @@ import fs from "fs/promises";
 import sendEmail from "../utils/sendEmail.js";
 import crypto from "crypto";
 import { resetPassTemplate } from "../htmlTemplates/resetPassTemplate.js";
+import userSignupTemplate from "../htmlTemplates/userSignupTemplate.js";
 
 const cookieOptions = {
   maxAge: 24 * 60 * 60 * 1000,
@@ -34,8 +35,7 @@ const register = async (req, res, next) => {
       role,
       avatar: {
         public_id: email,
-        secure_url:
-          "https://res.cloudinary.com/dzfftge5f/image/upload/v1695289023/abhishek/irg9aow0hs7qkzatgytw.png",
+        secure_url: `https://api.dicebear.com/5.x/initials/svg?seed=${fullName}`,
       },
     });
 
@@ -81,6 +81,12 @@ const register = async (req, res, next) => {
 
     // setting token to cookie
     res.cookie("token", token, cookieOptions);
+
+    //sending mail after user successfully registered
+    const loginUrl = `${process.env.FRONTEND_URL}/login`
+    const signupEmail = userSignupTemplate(user.fullName, loginUrl)
+    const subject = "Registration Successful || Tech. Edu."
+    await sendEmail(user.email, subject, signupEmail)
 
     res.status(200).json({
       success: true,

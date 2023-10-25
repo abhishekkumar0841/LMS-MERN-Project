@@ -5,6 +5,9 @@ import { razorpay } from "../server.js";
 import AppError from "../utils/error.utils.js";
 import crypto from "crypto";
 import asyncHandler from "express-async-handler";
+import sendEmail from "../utils/sendEmail.js";
+import subscribeTemplate from "../htmlTemplates/subscribeTemplate.js";
+import cancelSubscriptionTemplate from "../htmlTemplates/cancelSubscriptionTemplate.js";
 
 export const getRazorpayApiKey = async (req, res, next) => {
   try {
@@ -95,6 +98,12 @@ export const verifySubscription = async (req, res, next) => {
     user.subscription.status = "active";
     await user.save();
 
+    //sending email to user after subscription is verified
+    const coursePageUrl = `${process.env.FRONTEND_URL}/courses`
+    const subject = "Subscription Successful || Tech. Edu."
+    const subscribeEmail = subscribeTemplate(user.fullName, user.subscription.id, coursePageUrl)
+    await sendEmail(user.email, subject, subscribeEmail)
+
     res.status(200).json({
       success: true,
       message: "Payment created or verified successfully",
@@ -128,6 +137,12 @@ export const cancelSubscription = asyncHandler(async (req, res, next) => {
 
     // Adding the subscription status to the user account
     user.subscription.status = subscription.status;
+
+    //sending mail after user cancelled the subscription
+    const url = `${process.env.FRONTEND_URL}/course/description`
+    const subject = "Subscription Cancelled || Tech. Edu."
+    const cancelSubEmail = cancelSubscriptionTemplate(user.fullName, subscriptionId, url)
+    await sendEmail(user.email, subject, cancelSubEmail)
 
     // Saving the user object
     await user.save();
