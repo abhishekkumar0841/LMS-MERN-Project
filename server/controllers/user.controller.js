@@ -4,6 +4,7 @@ import cloudinary from "cloudinary";
 import fs from "fs/promises";
 import sendEmail from "../utils/sendEmail.js";
 import crypto from "crypto";
+import { resetPassTemplate } from "../htmlTemplates/resetPassTemplate.js";
 
 const cookieOptions = {
   maxAge: 24 * 60 * 60 * 1000,
@@ -183,18 +184,21 @@ const forgetPassword = async (req, res, next) => {
   const resetPasswordURL = `${process.env.FRONTEND_URL}/reset-password/${resetToken}`;
   console.log("Printing resetPasswordUrl--> ", resetPasswordURL);
 
+  const messageEmailTemplate = resetPassTemplate(resetPasswordURL)
+
   //sending email to user
-  const subject = "Reset Password";
-  const message = `You can reset your password by just click on this link --> <a href=${resetPasswordURL} target="_blank">Reset Your Password </a>\n If the above link is not works for some reason, then please copy and paste this link in new tab --> ${resetPasswordURL} `;
+  const subject = `Tech. Edu. || Reset Password`;
+
   try {
     //this sendEmail() is in utils folder
-    await sendEmail(email, subject, message);
+    await sendEmail(email, subject, messageEmailTemplate);
 
     console.log("URL sended successfully for forget password...");
 
     res.status(200).json({
       success: true,
       message: `Reset password token has been sent to ${email}`,
+      resetToken,
     });
   } catch (error) {
     console.log("Error while sending forget password URL...");
@@ -202,14 +206,22 @@ const forgetPassword = async (req, res, next) => {
     user.forgetPasswordToken = undefined;
     user.forgetPasswordExpiry = undefined;
 
-    return next(new AppError(error.message, 400));
+    return next(new AppError(error.message, 500));
   }
 };
 
 //***** resetPassword Controller *****
 const resetPassword = async (req, res, next) => {
   const { resetToken } = req.params;
-  const { password } = req.body;
+  const { password, confirmPassword } = req.body;
+
+  if (!password || !confirmPassword) {
+    return next(new AppError("All fields are required!"));
+  }
+
+  if (password !== confirmPassword) {
+    return next(new AppError("Password and confirm password should be same!"));
+  }
 
   const forgetPasswordToken = crypto
     .createHash("sha256")
@@ -321,8 +333,8 @@ const updateUser = async (req, res, next) => {
 
   res.status(200).json({
     success: true,
-    message: "User Details Updated Successfully"
-  })
+    message: "User Details Updated Successfully",
+  });
 };
 
 export {

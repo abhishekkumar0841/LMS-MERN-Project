@@ -88,9 +88,10 @@ userSchema.methods = {
   //function for generatePasswordResetToken using CRYPTO
   //this function generates token with its expiry
   generatePasswordResetToken: async function () {
+    // Generate a random string of 20 bytes and convert it to a hexadecimal string
     const resetToken = crypto.randomBytes(20).toString("hex");
 
-    //setting these values to userModel which is already defined in this model
+    //Hash the generated reset token using SHA-256 algorithm setting these values to userModel
     this.forgetPasswordToken = crypto
       .createHash("sha256")
       .update(resetToken)
