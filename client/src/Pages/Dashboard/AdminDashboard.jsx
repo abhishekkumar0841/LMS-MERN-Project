@@ -132,7 +132,7 @@ const AdminDashboard = () => {
           </div>
 
           <div className="flex flex-col items-center gap-10 p-5 shadow-lg rounded-md">
-            <div className=" h-80 relative w-full border">
+            <div className=" h-80 relative w-full">
               <Bar className="absolute bottom-0 h-96 lg:h-80 w-full" data={sellsData} />
             </div>
 

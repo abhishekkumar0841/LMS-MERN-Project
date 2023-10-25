@@ -55,7 +55,7 @@ const Login = () => {
   return (
     <HomeLayout>
       <div className="flex items-center justify-center h-[100vh]">
-        <form
+        <form noValidate
           onSubmit={onLogin}
           className="flex flex-col justify-center items-center gap-3 rounded-lg p-4 text-white w-96 shadow-[0_0_10px_black]"
         >
@@ -91,7 +91,7 @@ const Login = () => {
             />
             <div
               onClick={toggleShowPassword}
-              className=" absolute right-2 top-9 text-lg"
+              className=" absolute right-3 top-9 text-xl cursor-pointer"
             >
               {!showPassword ? <AiFillEyeInvisible /> : <AiFillEye />}
             </div>

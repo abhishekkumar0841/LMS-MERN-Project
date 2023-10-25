@@ -19,7 +19,7 @@ const CheckoutSuccess = () => {
           <h1 className=" bg-green-500 absolute top-0 w-full text-center py-4 text-2xl font-bold rounded-tl-lg rounded-tr-lg">
             Payment Successful
           </h1>
-          <div className=" px-4 flex items-center justify-center space-y-2">
+          <div className=" px-4 flex items-center flex-col justify-center space-y-2">
             <div className=" text-center space-y-2">
               <h2 className=" text-lg font-semibold">
                 Welcome to the pro bundle

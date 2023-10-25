@@ -59,30 +59,30 @@ const HomeLayout = ({ children }) => {
                 <AiFillCloseCircle size={24} />
               </button>
             </li>
-            <li className="text-2xl sm:text-3xl font-semibold">
+            <li className="text-2xl font-semibold">
               <Link to={"/"}>Home</Link>
             </li>
 
             {/* only render this li if user is logged in and his/her role is of Admin */}
             {isLoggedIn && role === "Admin" && (
-              <li className="text-2xl sm:text-3xl font-semibold">
+              <li className="text-2xl font-semibold">
                 <Link to={"/admin/dashboard"}>Admin Dashboard</Link>
               </li>
             )}
 
             {isLoggedIn && role === "Admin" && (
-              <li className="text-2xl sm:text-3xl font-semibold">
+              <li className="text-2xl font-semibold">
                 <Link to={"/course/create"}>Add New Course</Link>
               </li>
             )}
 
-            <li className="text-2xl sm:text-3xl font-semibold">
+            <li className="text-2xl font-semibold">
               <Link to={"/courses"}>All Courses</Link>
             </li>
-            <li className="text-2xl sm:text-3xl font-semibold">
+            <li className="text-2xl font-semibold">
               <Link to={"/contact"}>Contact Us</Link>
             </li>
-            <li className="text-2xl sm:text-3xl font-semibold">
+            <li className="text-2xl font-semibold">
               <Link to={"/about"}>About Us</Link>
             </li>
 

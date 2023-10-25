@@ -45,12 +45,12 @@ const EditProfile = () => {
   async function onFormSubmit(e) {
     e.preventDefault();
 
-    if (!data.fullName) {
+    if (!data.fullName && !data.avatar) {
       toast.error("Nothing here to update");
       return;
     }
 
-    if (data.fullName.length < 2) {
+    if (data.fullName && data.fullName.length < 2) {
       toast.error("Enter your proper name for update");
       return;
     }
@@ -69,7 +69,7 @@ const EditProfile = () => {
   return (
     <HomeLayout>
       <div className="flex items-center justify-center h-[100vh]">
-        <form
+        <form noValidate
           onSubmit={onFormSubmit}
           className="flex flex-col justify-center gap-5 rounded-lg p-4 text-white w-80 min-h-[26rem] shadow-[0_0_10px_black]"
         >

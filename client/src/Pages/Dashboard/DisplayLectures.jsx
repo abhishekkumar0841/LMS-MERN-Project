@@ -29,10 +29,15 @@ const DisplayLectures = () => {
 
   const onLectureDelete = async (courseId, lectureId) => {
     console.log(courseId, lectureId);
-    await dispatch(
-      deleteCourseLectures({ courseId: courseId, lectureId: lectureId })
-    );
-    await dispatch(getCourseLectures(courseId));
+    if (window.confirm("Are you sure to want to delete this lecture ?")) {
+      const res = await dispatch(
+        deleteCourseLectures({ courseId: courseId, lectureId: lectureId })
+      );
+
+      if (res?.payload?.success) {
+        await dispatch(getCourseLectures(courseId));
+      }
+    }
   };
 
   return (
@@ -127,9 +132,8 @@ const DisplayLectures = () => {
 
             {role === "Admin" && (
               <>
-                <h1  className="font-bold text-2xl tracking-wider">
-                  No Lectures! If you want to add click on the below
-                  button
+                <h1 className="font-bold text-2xl tracking-wider">
+                  No Lectures! If you want to add click on the below button
                 </h1>
                 <button
                   onClick={() =>

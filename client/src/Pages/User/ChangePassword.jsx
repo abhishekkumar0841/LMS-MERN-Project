@@ -82,12 +82,12 @@ const ChangePassword = () => {
             {!oldPassword ? (
               <AiFillEyeInvisible
                 onClick={toggleOldPassword}
-                className="absolute right-2 top-11 text-xl"
+                className="absolute right-2 top-11 text-xl cursor-pointer"
               />
             ) : (
               <AiFillEye
                 onClick={toggleOldPassword}
-                className="absolute right-2 top-11 text-xl"
+                className="absolute right-2 top-11 text-xl cursor-pointer"
               />
             )}
           </div>
@@ -111,12 +111,12 @@ const ChangePassword = () => {
             {!newPassword ? (
               <AiFillEyeInvisible
                 onClick={toggleNewPassword}
-                className="absolute right-2 top-11 text-xl"
+                className="absolute right-2 top-11 text-xl cursor-pointer"
               />
             ) : (
               <AiFillEye
                 onClick={toggleNewPassword}
-                className="absolute right-2 top-11 text-xl"
+                className="absolute right-2 top-11 text-xl cursor-pointer"
               />
             )}
           </div>

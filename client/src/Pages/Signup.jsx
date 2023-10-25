@@ -182,7 +182,7 @@ const Signup = () => {
               placeholder="Enter Your Password"
               className=" bg-transparent px-2 py-1 border rounded-sm"
             />
-            <div onClick={togglePasswordIcon} className="absolute right-2 top-9 text-lg">{!showPassword ? <AiFillEyeInvisible /> : <AiFillEye />}</div>
+            <div onClick={togglePasswordIcon} className="absolute cursor-pointer right-2 top-9 text-lg">{!showPassword ? <AiFillEyeInvisible /> : <AiFillEye />}</div>
           </div>
 
           <button
