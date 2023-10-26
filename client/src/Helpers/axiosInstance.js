@@ -1,7 +1,8 @@
 import axios from "axios";
 
 //this is the BASE_URL of Server(backend)
-const BASE_URL = "http://localhost:5014/api/v1";
+// const BASE_URL = "http://localhost:5014/api/v1";
+const BASE_URL = "https://lms-tech-edu.onrender.com";
 
 //creating axios instance
 const axiosInstance = axios.create();
