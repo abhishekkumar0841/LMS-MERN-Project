@@ -5,7 +5,7 @@ import asyncHandler from 'express-async-handler'
 
 // ********AUTHENTICATION MIDDLEWARE************
 const isLoggedIn = async (req, res, next) => {
-  const { token } = req.cookies;
+  const token  = req.cookies.token || req.header("Authorization").replace("Bearer ", "");
 
   if (!token) {
     return next(new AppError("Unauthenticated, please login again", 400));
