@@ -8,7 +8,6 @@ import { isEmail } from "../../Helpers/regexMatcher";
 
 const ForgetPassword = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   const [textInput, setTextInput] = useState({
     email: "",

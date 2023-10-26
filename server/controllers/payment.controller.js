@@ -139,7 +139,7 @@ export const cancelSubscription = asyncHandler(async (req, res, next) => {
     user.subscription.status = subscription.status;
 
     //sending mail after user cancelled the subscription
-    const url = `${process.env.FRONTEND_URL}/course/description`
+    const url = `${process.env.FRONTEND_URL}/courses`
     const subject = "Subscription Cancelled || Tech. Edu."
     const cancelSubEmail = cancelSubscriptionTemplate(user.fullName, subscriptionId, url)
     await sendEmail(user.email, subject, cancelSubEmail)
@@ -165,7 +165,7 @@ export const allPayments = asyncHandler(async (req, res, _next) => {
   // Find all subscriptions from razorpay
   const allPayments = await razorpay.subscriptions.all({
     count: count ? count : 10, // If count is sent then use that else default to 10
-    skip: skip ? skip : 0, // // If skip is sent then use that else default to 0
+    skip: skip ? skip : 58, //i use 58 to skip first 58 payments because i change the database from localhost to cloud mongoDB Atlas. // If skip is sent then use that else default to 0
   });
 
   const monthNames = [

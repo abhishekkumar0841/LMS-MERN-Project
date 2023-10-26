@@ -108,6 +108,8 @@ const updateCourse = async function (req, res, next) {
       return next(new AppError("Course with existing Id does not exist", 400));
     }
 
+    await course.save();
+
     res.status(200).json({
       success: true,
       message: "Course is updated successfully",

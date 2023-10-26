@@ -29,7 +29,7 @@ export const statSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(getStatsData.fulfilled, (state, action)=>{
-      console.log("Action of getStateData fulfilled->", action)
+      // console.log("Action of getStateData fulfilled->", action)
       state.allUsersCount = action?.payload?.allUsersCount;
       state.subscribedCount = action?.payload?.subscribedUsersCount;
     })

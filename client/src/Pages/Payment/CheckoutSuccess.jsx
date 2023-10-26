@@ -30,7 +30,7 @@ const CheckoutSuccess = () => {
             <AiFillCheckCircle className=" text-green-500 text-5xl" />
           </div>
           <Link
-            to={"/"}
+            to={"/courses"}
             className=" bg-green-500 hover:bg-green-600 transition-all duration-300 ease-in-out absolute bottom-0 w-full py-2 text-xl font-semibold text-center rounded-br-lg rounded-bl-lg"
           >
             <button>Go To Dashboard</button>

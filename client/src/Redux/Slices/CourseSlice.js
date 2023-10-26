@@ -65,7 +65,7 @@ const courseSlice = createSlice({
     reducers: {},
     extraReducers: (builder) => {
         builder.addCase(getAllCourses.fulfilled, (state, action)=>{
-            console.log("PRINTING action.payload in CourseSlice.js->", action.payload)
+            // console.log("PRINTING action.payload in CourseSlice.js->", action.payload)
             if(action.payload){
                 state.courseData = [...action.payload]
             }

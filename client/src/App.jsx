@@ -32,11 +32,10 @@ function App() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
         <Route path="/login/forget-password" element={<ForgetPassword />} />
-        <Route path="/reset-password/:resetToken" element={<ResetPassword/>} />
+        <Route path="/reset-password/:resetToken" element={<ResetPassword />} />
 
         {/* Course routes */}
         <Route path="/courses" element={<CourseList />} />
-        <Route path="/course/description" element={<CourseDescription />} />
 
         {/* Contact page routes */}
         <Route path="/contact" element={<Contact />} />
@@ -56,6 +55,8 @@ function App() {
           <Route path="/user/profile" element={<Profile />} />
           <Route path="/user/editprofile" element={<EditProfile />} />
           <Route path="/user/changepassword" element={<ChangePassword />} />
+          <Route path="/course/description" element={<CourseDescription />} />
+
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/checkout/success" element={<CheckoutSuccess />} />
           <Route path="/checkout/fail" element={<CheckoutFailure />} />

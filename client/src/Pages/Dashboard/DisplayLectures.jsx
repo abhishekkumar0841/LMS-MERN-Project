@@ -23,12 +23,12 @@ const DisplayLectures = () => {
     if (!state) {
       navigate("/courses");
     }
-    console.log("STATE IS --> ", state);
+    // console.log("STATE IS --> ", state);
     dispatch(getCourseLectures(state._id));
   }, []);
 
   const onLectureDelete = async (courseId, lectureId) => {
-    console.log(courseId, lectureId);
+    // console.log(courseId, lectureId);
     if (window.confirm("Are you sure to want to delete this lecture ?")) {
       const res = await dispatch(
         deleteCourseLectures({ courseId: courseId, lectureId: lectureId })

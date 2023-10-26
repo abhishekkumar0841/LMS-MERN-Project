@@ -8,7 +8,7 @@ import { AiOutlineArrowLeft } from "react-icons/ai";
 
 const AddLecture = () => {
   const courseDetails = useLocation().state;
-//   console.log("COURSE_DETAILS IN ADD_LECTURE", courseDetails);
+  // console.log("COURSE_DETAILS IN ADD_LECTURE", courseDetails);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -32,7 +32,7 @@ const AddLecture = () => {
     const video = e.target.files[0];
     //converting video to url
     const source = window.URL.createObjectURL(video);
-    console.log("SOURCE->", source);
+    // console.log("SOURCE->", source);
     setUserInput({
       ...userInput,
       lecture: video,
@@ -48,7 +48,7 @@ const AddLecture = () => {
     }
 
     const response = await dispatch(addCourseLectures(userInput));
-    console.log("RESPONSE OF ADD_COURSE_LECTURES", response);
+    // console.log("RESPONSE OF ADD_COURSE_LECTURES", response);
 
     if (response?.payload?.success) {
         navigate(-1)

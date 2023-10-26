@@ -46,12 +46,12 @@ const Signup = () => {
         avatar: uploadedImage,
       });
 
-      console.log("Printing signup data->", signupData);
+      // console.log("Printing signup data->", signupData);
 
       const fileReader = new FileReader();
       fileReader.readAsDataURL(uploadedImage);
       fileReader.addEventListener("load", function () {
-        console.log("File reader result->", this.result);
+        // console.log("File reader result->", this.result);
         setPreviewImage(this.result);
       });
     }
@@ -93,7 +93,7 @@ const Signup = () => {
 
     //dispatch createAccount action
     const response = await dispatch(createAccount(formData));
-    console.log("PRINTING RESPONSE from Signup.jsx->", response);
+    // console.log("PRINTING RESPONSE from Signup.jsx->", response);
 
     if (response?.payload?.success) {
       navigate("/login");

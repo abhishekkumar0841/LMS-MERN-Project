@@ -39,9 +39,9 @@ const ChangePassword = () => {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    console.log(inputText);
+    // console.log(inputText);
     const res = await dispatch(changePassword(inputText));
-    console.log("Res of change password->", res);
+    // console.log("Res of change password->", res);
 
     if (res?.payload?.success) {
       setInputText({

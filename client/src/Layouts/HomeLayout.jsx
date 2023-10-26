@@ -32,8 +32,9 @@ const HomeLayout = ({ children }) => {
   const handleLogout = async () => {
     // e.preventDefault();
     const res = await dispatch(logout());
+    // console.log("Res on logout->",res)
 
-    if (res?.payload?.success) {
+    if (res?.meta?.requestStatus === 'fulfilled') {
       navigate("/");
     }
   };

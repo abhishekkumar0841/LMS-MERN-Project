@@ -9,7 +9,6 @@ const initialState = {
     localStorage.getItem("data") !== undefined
       ? JSON.parse(localStorage.getItem("data"))
       : {},
-  data: JSON.parse(localStorage.getItem("data")) || {},
 };
 
 //creating asyncThunk for creating account
