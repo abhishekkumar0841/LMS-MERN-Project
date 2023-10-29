@@ -11,6 +11,7 @@ const cookieOptions = {
   maxAge: 24 * 60 * 60 * 1000,
   httpOnly: true,
   secure: true,
+  sameSite: "None",
 };
 
 //*****register Controller *****
@@ -83,10 +84,10 @@ const register = async (req, res, next) => {
     res.cookie("token", token, cookieOptions);
 
     //sending mail after user successfully registered
-    const loginUrl = `${process.env.FRONTEND_URL}/login`
-    const signupEmail = userSignupTemplate(user.fullName, loginUrl)
-    const subject = "Registration Successful || Tech. Edu."
-    await sendEmail(user.email, subject, signupEmail)
+    const loginUrl = `${process.env.FRONTEND_URL}/login`;
+    const signupEmail = userSignupTemplate(user.fullName, loginUrl);
+    const subject = "Registration Successful || Tech. Edu.";
+    await sendEmail(user.email, subject, signupEmail);
 
     res.status(200).json({
       success: true,
@@ -190,7 +191,7 @@ const forgetPassword = async (req, res, next) => {
   const resetPasswordURL = `${process.env.FRONTEND_URL}/reset-password/${resetToken}`;
   console.log("Printing resetPasswordUrl--> ", resetPasswordURL);
 
-  const messageEmailTemplate = resetPassTemplate(resetPasswordURL)
+  const messageEmailTemplate = resetPassTemplate(resetPasswordURL);
 
   //sending email to user
   const subject = `Tech. Edu. || Reset Password`;
