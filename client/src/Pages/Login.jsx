@@ -40,7 +40,6 @@ const Login = () => {
 
     //dispatch login action
     const response = await dispatch(login(loginData));
-    console.log("PRINTING RESPONSE from Login.jsx->", response);
 
     if (response?.payload?.success) {
       navigate("/");

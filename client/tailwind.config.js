@@ -6,6 +6,7 @@ export default {
   ],
   theme: {
     screens: {
+      'xxs': '355px', //handling for coding typing section in homepage
       'xs': '440px',
       'sm': '640px',
       // => @media (min-width: 640px) { ... }
