@@ -1,6 +1,6 @@
 import React from "react";
 import HomeLayout from "../Layouts/HomeLayout";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { TypeAnimation } from "react-type-animation";
 import banner from "../assets/videos/banner.mp4";
 import toast from "react-hot-toast";
@@ -8,6 +8,7 @@ import girlStudent from "../assets/Images/girlStudent.webp";
 import instructorImg from "../assets/Images/Instructor.png";
 
 const HomePage = () => {
+  const navigate = useNavigate()
   return (
     <HomeLayout>
       <>
@@ -76,7 +77,10 @@ const HomePage = () => {
             </video>
           </div>
           <button
-            onClick={() => toast.success("Fill this form to become an admin")}
+            onClick={() =>{
+              toast.success("Fill this form to become an admin")
+              navigate('/contact')
+            }} 
             className="bg-yellow-500 px-2 py-1 lg:px-5 lg:py-3 rounded-md font-semibold text-lg lg:text-xl cursor-pointer hover:bg-yellow-600 transition-all ease-in-out duration-300 mt-4 text-white"
           >
             Become an Admin
