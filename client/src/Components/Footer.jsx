@@ -66,7 +66,7 @@ const Footer = () => {
             <h1 className=" text-white font-bold">Tech. Edu.</h1>
             <span>an educational platform</span>
             <p>- By -</p>
-            <p className=" text-white font-bold">Abhishek Kumar</p>
+            <p className=" text-white font-bold">Shubham Dangi</p>
           </section>
           <section className="flex items-center flex-row sm:flex-col justify-start lg:flex-row lg:justify-center gap-5 text-xl sm:text-2xl">
             <a className=" cursor-pointer hover:text-white transition-all ease-in-out duration-300">
